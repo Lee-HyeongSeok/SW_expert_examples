@@ -16,7 +16,9 @@
 #### 1차원 배열   
 		* 부분집합   
 				* Left Shift 연산을 사용하여 모든 부분집합 탐색   
-		![asd](https://user-images.githubusercontent.com/55940552/103454002-b375ca00-4d22-11eb-8316-e10e2e94f669.PNG)   
+
+
+![asd](https://user-images.githubusercontent.com/55940552/103454002-b375ca00-4d22-11eb-8316-e10e2e94f669.PNG)   
 
 ```c
 	int arr[] = { 1, 2, 3, 4 };
