@@ -35,10 +35,14 @@
 #### 2차원 배열   
 		* 탐색   
 				1. 지그재그 탐색   
-				![q](https://user-images.githubusercontent.com/55940552/103454052-5deded00-4d23-11eb-813a-d26ce1707dae.PNG)   
+
+
+![q](https://user-images.githubusercontent.com/55940552/103454052-5deded00-4d23-11eb-813a-d26ce1707dae.PNG)   
 
 				2. 델타 이용, 4방향 탐색   
-				![1](https://user-images.githubusercontent.com/55940552/103454132-30557380-4d24-11eb-8dfd-f06b5608cedc.PNG)   
-				![2](https://user-images.githubusercontent.com/55940552/103454135-36e3eb00-4d24-11eb-9ab5-822d37c41b0b.PNG)   
+
+![1](https://user-images.githubusercontent.com/55940552/103454132-30557380-4d24-11eb-8dfd-f06b5608cedc.PNG)   
+				
+![2](https://user-images.githubusercontent.com/55940552/103454135-36e3eb00-4d24-11eb-9ab5-822d37c41b0b.PNG)   
 
 				
