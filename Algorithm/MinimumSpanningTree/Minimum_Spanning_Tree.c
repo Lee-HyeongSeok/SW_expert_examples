@@ -62,7 +62,7 @@ void Kruskal(void) {
 		int group_x = find_root(edge[i].x); // x정점
 		int group_y = find_root(edge[i].y); // y정점
 
-		// 고립된 정점이면 무시
+		// 사이클을 형성한다면
 		if (group_x == group_y)
 			continue;
 
