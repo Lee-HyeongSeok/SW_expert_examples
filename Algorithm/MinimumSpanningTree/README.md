@@ -186,3 +186,4 @@ Union 5-1
 
 [HeeJeong Kwon 블로그](https://gmlwjd9405.github.io/2018/08/28/algorithm-mst.html)
 
+[dnjscksdn98.log 블로그](https://velog.io/@dnjscksdn98/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%B5%9C%EC%86%8C-%EC%8B%A0%EC%9E%A5-%ED%8A%B8%EB%A6%AC)
