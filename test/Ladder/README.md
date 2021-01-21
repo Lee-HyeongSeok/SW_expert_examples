@@ -74,5 +74,9 @@ ex) 10 by 10 행렬에 임의의 개수의 막대들이 랜덤 간격으로 추�
    	return false; // 해당 라인에 2가 없을 때 
    }
    ```
+   
+***   
 
+[출처]
+[SW Expert Academy](https://swexpertacademy.com/main/main.do)
    
