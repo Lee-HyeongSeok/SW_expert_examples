@@ -10,9 +10,7 @@
   - 가장 최근에 들어온 데이터가 먼저 출력 된다.
 - 컴퓨터 시스템에서 함수를 호출할 때 사용한다.
 
-![stack](C:\Users\kea71\Desktop\stack.png)   
-
-   
+![asd](https://user-images.githubusercontent.com/55940552/105873017-62fe3d80-603e-11eb-8ce2-3807ac59417a.PNG)   
 
 
 
