@@ -8,6 +8,8 @@
 
 - FIFO(First in First out) 방식으로 가장 먼저 삽입된 데이터가 가장 먼저 삭제되는 구조다.
 
+![큐](https://user-images.githubusercontent.com/55940552/106095118-8af0bc80-6176-11eb-804b-2bd6dc72b35a.png)   
+
 
 
 ### **⚙ Queue의 표현**
@@ -92,5 +94,32 @@
   }
   ```
 
-  [전체 코드 Queue.c](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Queue/SW_Expert_Reference_Code)
 
+
+### **⚙ 큐 구현**
+
+- **단순 1차원 배열을 통한 순차 큐 구현**
+
+  [Queue.c](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Queue/SW_Expert_Reference_Code)
+
+- **구조체를 이용한 순차 큐 구현**
+
+  [Queue_Structure.c](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Queue/KPU_Class)
+
+- **구조체를 이용한 원형 큐 구현**
+
+  [CircularQueue.c](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Queue/Circular_Queue)
+
+- **클래스를 이용한 원형 큐 구현**
+
+  [CircularQueueCpp.cpp](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Queue/Circular_Queue_CPP)
+
+***
+
+**[출처]**
+
+[SW Expert Academy](https://swexpertacademy.com/main/visualcode/main.do#/home/editor//)
+
+[진짜 개발자 블로그](https://galid1.tistory.com/483)
+
+[한국산업기술대학교](https://portal.kpu.ac.kr/)
