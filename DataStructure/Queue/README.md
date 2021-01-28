@@ -37,6 +37,12 @@
 
 - **원형 큐**
 
+  
+
+  ![Untitled Diagram](https://user-images.githubusercontent.com/55940552/106107659-87ffc700-618a-11eb-8187-c0b5e805ee6b.png)   
+
+  
+
   - 순차 표현 시 원형 큐를 이용하면 원소의 이동 없이 이용 가능
   - front, rear를 0으로 초기화
   - 원소 삽입 시 우선적으로 큐가 **포화 상태**임을 확인한다.
