@@ -51,7 +51,8 @@ int getRoot() {
 	return -1; // 루트 노드가 없다면 -1 반환 후 함수 종료
 }
 
-// 전위 정렬
+// 전위 순회
+// 자식 노드보다 루트 노드를 먼저 방문한다.
 void preOrder(int root) {
 	int child = 0;
 	printf("%d ", root); // 루트 출력
@@ -66,6 +67,36 @@ void preOrder(int root) {
 			preOrder(child);
 		}
 	}
+}
+
+// 중위 순회
+void inOrder(int root) {
+	int child = 0;
+
+	child = tree[root].child[0];
+
+	if (child != -1)
+		inOrder(child);
+	printf("%d ", root);
+
+	child = tree[root].child[1];
+	if (child != -1)
+		inOrder(child);
+}
+
+// 후위 순회
+void postOrder(int root) {
+	int child = 0;
+
+	for (int i = 0; i < MAX_CHILD; i++) {
+		child = tree[root].child[i]; // 왼쪽 자식, 오른쪽 자식 노드 탐색
+
+		// 자식 노드 존재 시
+		if (child != -1) {
+			postOrder(child); // 최하단 까지 내려감 
+		}
+	}
+	printf("%d ", root);
 }
 
 int main() {
@@ -86,6 +117,14 @@ int main() {
 
 		root = getRoot(); // 루트 노드의 번호를 반환받는다.
 		preOrder(root); // 전위 순회
+		printf("\n");
+
+		root = getRoot();
+		inOrder(root); // 중위 순회
+		printf("\n");
+
+		root = getRoot();
+		postOrder(root); // 후위 순회
 		printf("\n");
 	}
 
