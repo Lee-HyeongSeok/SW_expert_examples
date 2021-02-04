@@ -9,9 +9,18 @@ typedef struct TreeNode {
 	struct TreeNode *left, *right;
 }TreeNode;
 
-TreeNode * maxNode(TreeNode * root) {
+// 가장 오른쪽 노드를 탐색해서 반환하는 함수
+TreeNode * maxRightSearchingNode(TreeNode * root) {
 	for (TreeNode * cur = root; cur != NULL; cur = cur->right) {
-		if (cur->right == NULL)
+		if (cur->right == NULL && cur->left) // 최하위 단말노드일 때 반환
+			return cur;
+	}
+	return root;
+}
+// 가장 왼쪽 노드를 탐색해서 반환하는 함수 
+TreeNode * maxLeftSearchingNode(TreeNode * root) {
+	for (TreeNode * cur = root; cur != NULL; cur = cur->left) {
+		if (cur->left == NULL && cur->right) // 최하위 단말노드일 때 반환 
 			return cur;
 	}
 	return root;
@@ -85,18 +94,37 @@ void DeleteTree(TreeNode * root, int element) {
 				}
 				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
 				// 삭제 대상 노드가 왼쪽 서브트리만 가지고 있을 경우
+				// 왼쪽 서브트리에서는 가장 오른쪽 최하단의 값으로 교체해야 함
 				else if (cur->left->left && cur->left->right == NULL) {
-					temp = maxNode(cur->left->left);
-
+					temp = maxRightSearchingNode(cur->left->left); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->left = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
+					break;
 				}
 				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
 				// 삭제 대상 노드가 오른쪽 서브트리만 가지고 있을 경우
+				// 오른쪽 서브트리에서는 가장 왼쪽 최하단의 값으로 교체해야 함
 				else if (cur->left->left == NULL && cur->left->right) {
-
+					temp = maxRightSearchingNode(cur->left->right); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->left = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
+					break;
 				}
 				// 삭제 대상 노드가 왼쪽, 오른쪽 두개의 서브트리를 가지고 있을 경우
 				else if (cur->left->left && cur->left->right) {
-
+					temp = maxRightSearchingNode(cur->left->left); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->left = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
+					break;
 				}
 			}
 			// 현재 노드 기준
@@ -119,6 +147,39 @@ void DeleteTree(TreeNode * root, int element) {
 				if (cur->right->left == NULL && cur->right->right == NULL) {
 					free(removed); // 삭제 대상 노드인 removed를 메모리 해제
 					cur->left = NULL; // 현 노드 기준, 삭제 대상이였던 왼쪽 자식을 NULL로 교체
+					break;
+				}
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
+				// 삭제 대상 노드가 왼쪽 서브트리만 가지고 있을 경우
+				// 왼쪽 서브트리에서는 가장 오른쪽 최하단의 값을 교체해야 함
+				else if (cur->right->left && cur->right->right == NULL) {
+					temp = maxLeftSearchingNode(cur->right->left); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->right = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
+					break;
+				}
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
+				// 삭제 대상 노드가 오른쪽 서브트리만 가지고 있을 경우
+				else if (cur->right->left == NULL && cur->right->right) {
+					temp = maxLeftSearchingNode(cur->right->right); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->right = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
+					break;
+				}
+				// 삭제 대상 노드가 왼쪽, 오른쪽 두개의 서브트리를 가지고 있을 경우
+				else if (cur->right->left && cur->right->right) {
+					temp = maxLeftSearchingNode(cur->right->right); // 왼쪽 서브트리에서 가장 큰 값을 가진 노드를 반환받는다.
+					cur->right = temp; // 가장 큰 값을 가진 노드를 현재 노드에 왼쪽 자식으로 가리킨다.
+					temp->left = removed->left; // 큰 값을 가진 노드의 왼쪽 자식을 삭제 대상 노드의 왼쪽 서브트리를 가리킨다.
+					temp->right = removed->right; // 큰 값을 가진 노드의 오른쪽 자식을 삭제 대상 노드의 오른쪽 서브트리를 가리킨다.
+					free(removed); // 삭제 대상 노드 메모리 해제
+					free(temp);	// 큰 값을 가진 임시 노드 메모리 해제
 					break;
 				}
 			}
