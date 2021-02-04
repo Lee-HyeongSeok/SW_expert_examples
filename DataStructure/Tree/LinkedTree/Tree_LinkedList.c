@@ -2,10 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
 typedef struct TreeNode {
 	int data;
 	struct TreeNode *left, *right;
 }TreeNode;
+
+TreeNode * maxNode(TreeNode * root) {
+	for (TreeNode * cur = root; cur != NULL; cur = cur->right) {
+		if (cur->right == NULL)
+			return cur;
+	}
+	return root;
+}
 
 TreeNode * insertNode(TreeNode * root, int element) {
 	TreeNode * cur = root;
@@ -43,6 +53,10 @@ TreeNode * insertNode(TreeNode * root, int element) {
 
 // 트리 내 원소 삭제 알고리즘
 void DeleteTree(TreeNode * root, int element) {
+	TreeNode * cur = root; // 탐색을 위한 노드
+	TreeNode * removed; // 삭제를 위한 임시 노드
+	TreeNode * temp;
+
 	// 트리가 존재하지 않을 경우 
 	if (!root) {
 		printf("트리가 존재하지 않는다.\n");
@@ -53,17 +67,67 @@ void DeleteTree(TreeNode * root, int element) {
 	// 해당 원소를 가지는 노드가 단말 노드, 하나의 서브트리, 두개의 서브트리를 가지는지
 	// 판별해야 한다.
 	while (1) {
-		// 현재 노드의 위치에 해당 데이터가 존재할 경우
-		if (root->data == element) {
+		// 현재 노드 기준, 삭제 대상 값이 현재 노드 값보다 작으면 왼쪽 탐색
+		if (cur->data > element) {
 
+			// 현재 노드 기준
+			// 현 노드가 가리키는 왼쪽 자식 값이 삭제 대상 값과 일치 하는 경우
+			if (cur->left->data == element) {
+				removed = cur->left;//삭제 대상 노드로 이동 
+
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 자식 존재유무 확인
+				// 삭제 대상 노드가 단말 노드라면
+				// 삭제 대상 노드를 삭제
+				if (cur->left->left == NULL && cur->left->right == NULL) {
+					free(removed); // 삭제 대상 노드인 removed를 메모리 해제
+					cur->left = NULL; // 현 노드 기준, 삭제 대상이였던 왼쪽 자식을 NULL로 교체
+					break;
+				}
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
+				// 삭제 대상 노드가 왼쪽 서브트리만 가지고 있을 경우
+				else if (cur->left->left && cur->left->right == NULL) {
+					temp = maxNode(cur->left->left);
+
+				}
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 서브트리 유무 확인
+				// 삭제 대상 노드가 오른쪽 서브트리만 가지고 있을 경우
+				else if (cur->left->left == NULL && cur->left->right) {
+
+				}
+				// 삭제 대상 노드가 왼쪽, 오른쪽 두개의 서브트리를 가지고 있을 경우
+				else if (cur->left->left && cur->left->right) {
+
+				}
+			}
+			// 현재 노드 기준
+			// 현 노드가 가리키는 왼쪽 자식 값이 삭제 대상 값과 불일치 하는 경우
+			// 위에서 삭제 대상 값이 현 노드 값보다 작으므로
+			else if (cur->left->data != element) {
+				cur = cur->left; // 현노드에서 왼쪽 자식으로 이동 
+			}
 		}
-		// 현재 노드의 위치에 해당 데이터가 존재하지 않을 경우
-		else {
-			
+		// 현재 노드 기준, 삭제 대상 값이 현재 노드 값보다 크면 오른쪽 탐색 
+		else if (cur->data < element) {
+			// 현재 노드 기준
+			// 현재 노드가 가리키는 오른쪽 자식 값이 삭제 대상 값과 일치 하는 경우
+			if (cur->right->data == element) {
+				removed = cur->right;//삭제 대상 노드로 이동 
+
+				// 삭제 대상 노드(cur->left)의 왼쪽, 오른쪽 자식 존재유무 확인
+				// 삭제 대상 노드가 단말 노드라면
+				// 삭제 대상 노드를 삭제
+				if (cur->right->left == NULL && cur->right->right == NULL) {
+					free(removed); // 삭제 대상 노드인 removed를 메모리 해제
+					cur->left = NULL; // 현 노드 기준, 삭제 대상이였던 왼쪽 자식을 NULL로 교체
+					break;
+				}
+			}
+			else if (cur->right->data != element) {
+				cur = cur->right;
+			}
 		}
 	}
 }
-
 void SearchNode(TreeNode * root, int data) {
 	if (root == NULL) {
 		printf("해당 데이터가 트리에 존재하지 않는다.\n");
@@ -73,11 +137,11 @@ void SearchNode(TreeNode * root, int data) {
 	while (1) {
 		if (root->data == data) {
 			printf("current node value : %d\n", root->data); // 현재 노드의 값 출력
-			if (root->left->data)
+			if (root->left != NULL)
 				printf("left child node value : %d\n", root->left->data); // 현재 노드의 왼쪽 자식 값 출력
 			else
 				printf("NULL\n");
-			if (root->right->data)
+			if (root->right != NULL)
 				printf("right child node value : %d\n", root->right->data); // 현재 노드의 오른쪽 자식 값 출력
 			else
 				printf("NULL\n");
@@ -90,6 +154,20 @@ void SearchNode(TreeNode * root, int data) {
 			else if (root->data < data) { // 부모 키값보다 찾으려는 값이 클 경우
 				SearchNode(root->right, data); // 오른쪽 자식으로 이동
 			}
+		}
+		break;
+	}
+}
+
+void preOrder(TreeNode * root) {
+	printf("%d -> ", root->data);
+
+	while (1) {
+		if (root->left != NULL) {
+			preOrder(root->left);
+		}
+		if (root->right != NULL) {
+			preOrder(root->right);
 		}
 		break;
 	}
@@ -111,6 +189,11 @@ int main() {
 	printf("\n");
 
 	printf("\n");
+	preOrder(root);
 
-	SearchNode(root, 2);
+	SearchNode(root, 6);
+	DeleteTree(root, 1); // 1삭제 
+	preOrder(root);
+
+	
 }
