@@ -109,7 +109,9 @@
     3. 포화 이진 트리 : 각 노드는 2개의 자식 노드를 가지며, 모든 노드가 꽉 차있을 경우를 말한다.
 
 - **이진 탐색 트리(Binary Search Tree)**
+  
   - 왼쪽 노드는 부모 노드의 값보다 작거나 같고, 오른쪽 노드는 부모 노드의 값보다<br> 크거나 같아야 하는 성질을 만족하는 트리
+  - [연결 리스트로 구현한 이진 탐색 트리](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Tree/LinkedTree)
 - **균형 트리**
   - O(log N) 시간에 삽입과 탐색을 할 수 있는 균등하게 자식 노드가 설정된 트리
   - ex) Red-Black Tree, AVL Tree
