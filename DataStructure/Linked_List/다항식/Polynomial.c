@@ -52,6 +52,85 @@ void insertNode(ListType * plist, int coef, int expon) {
 	plist->size++; // 노드 추가 시 사이즈 증가
 }
 
+// list3 = list1 + list2
 void poly_add(ListType * plist1, ListType *plist2, ListType * plist3) {
+	ListNode * a = plist1->head;
+	ListNode * b = plist2->head;
+	int sum = 0;
+	
+	while (a && b) {
+		// a와 b의 지수가 같을 경우
+		// 덧셈 수행
+		if (a->expon == b->expon) {
+			sum = a->coef + b->coef; // 각 계수를 더한다
+			if (sum != 0) // 각 계수를 더한 값이 0이 아니라면
+				insertNode(plist3, sum, a->expon); // plist3에 결과 삽입
+			a = a->link;
+			b = b->link;
+		}
+		// a의 지수가 b의 지수보다 클 경우
+		else if (a->expon > b->expon) {
+			// a의 정보만 plist3에 삽입된다.
+			insertNode(plist3, a->coef, a->expon);
+			a = a->link;
+		}
+		// a의 지수가 b의 지수보다 작을 경우
+		else {
+			// b의 정보만 plist3에 삽입된다.
+			insertNode(plist3, b->coef, b->expon);
+			b = b->link;
+		}
+	}
 
+	// 나머지 남은 값들을 plist3에 삽입한다.
+	for (; a != NULL; a = a->link)
+		insertNode(plist3, a->coef, a->expon);
+	for (; b != NULL; b = b->link)
+		insertNode(plist3, b->coef, b->expon);
+}
+
+void printPolynomial(ListType * plist) {
+	ListNode * cur = plist->head;
+
+	for (; cur; cur = cur->link) {
+		printf("%d^%d + ", cur->coef, cur->expon);
+	}
+	printf("\n");
+}
+
+int main() {
+	ListType *list1, *list2, *list3;
+	list1 = create();
+	list2 = create();
+	list3 = create();
+
+	int T = 0;
+	int coef, expon;
+
+	// 테스트 케이스 만큼 다항식 하나를 입력 받는다.
+	// plist1을 입력 받는다.
+	for (scanf("%d", &T); T--;) {
+		scanf("%d %d", &coef, &expon);
+
+		insertNode(list1, coef, expon);
+	}
+
+	// 테스트 케이스 만큼 다항식 하나를 입력 받는다.
+	// plist2를 입력 받는다.
+	for (scanf("%d", &T); T--;) {
+		scanf("%d %d", &coef, &expon);
+
+		insertNode(list2, coef, expon);
+	}
+
+	printPolynomial(list1); // list1 출력
+	printPolynomial(list2); // list2 출력
+
+	poly_add(list1, list2, list3);// list3 = list1 + list2
+	printPolynomial(list3); // 더한 결과 출력
+
+	// 메모리 해제
+	free(list1);
+	free(list2);
+	free(list3);
 }
