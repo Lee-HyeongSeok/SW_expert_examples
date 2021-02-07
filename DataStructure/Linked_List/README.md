@@ -78,13 +78,18 @@
   
     
 - **연결 리스트, 포인터를 이용한 구현**
+  
   - 구현이 복잡하다.
   
-  - 삽입, 삭제가 효율적이다.
-
+- 삽입, 삭제가 효율적이다.
+  
   - 데이터를 저장할 공간이 제한적이지 않다.
   
     [포인터를 이용한 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%85%B8%EB%93%9C%EA%B5%AC%ED%98%84)
+  
+    [포인터를 이용한 다항식 연산 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%8B%A4%ED%95%AD%EC%8B%9D)
+  
+    
   
     
   
