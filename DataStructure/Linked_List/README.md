@@ -60,18 +60,34 @@
 
 
 
-### **⚙ 리스트 구현 방법**
+### **⚙ 리스트 구현 방법 - 단순 연결 리스트(SLL)**
 
 - **1차원 배열을 이용한 구현**
+  
   - 구현이 간단하다.
+  
   - 삽입, 삭제 시 오버헤드 발생 가능
+  
   - 항목 개수 제한
-  - 순차적 메모리 공간할당 특징으로 **순차적 표현(Sequential Representation)**이라고 한다.
+  
+  - 순차적 메모리 공간할당 특징으로 **순차적 표현(Sequential Representation)**이라고 한다.   
+  
+    [1차원 배열을 이용한 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/1%EC%B0%A8%EC%9B%90%EB%B0%B0%EC%97%B4%EA%B5%AC%ED%98%84)
+  
+    [1차원 배열을 이용한 구현 - SW expert academy](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/SW_Expert_Reference_Code)   
+  
+    
 - **연결 리스트, 포인터를 이용한 구현**
   - 구현이 복잡하다.
+  
   - 삽입, 삭제가 효율적이다.
-  - 데이터를 저장할 공간이 제한적이지 않다.
 
+  - 데이터를 저장할 공간이 제한적이지 않다.
+  
+    [포인터를 이용한 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%85%B8%EB%93%9C%EA%B5%AC%ED%98%84)
+  
+    
+  
    
 
 ### **⚙  1차원 배열을 이용한 구현**
@@ -89,7 +105,7 @@
 
 typedef int element; // 자료형 정의
 typedef struct {
-	element Arr[MAX]; // 리스트 정의
+	element Arr[MAX]; // 1차원 배열 정의
 	int size; // 현재 리스트에 저장된 항목들의 개수
 }ArrayList;
 
@@ -201,24 +217,9 @@ int main() {
 - 삽입 연산 시 새로운 노드를 생성하고 head 노드와 연결해준다.
 - 삽입 연산
 
-![insert](https://user-images.githubusercontent.com/55940552/105963484-64724900-60c4-11eb-8456-bad0b1add025.png)
-
-- 삭제 연산
-
-![delete](https://user-images.githubusercontent.com/55940552/105963491-65a37600-60c4-11eb-9035-581cc7be92f2.png)
+![insert](https://user-images.githubusercontent.com/55940552/105963484-64724900-60c4-11eb-8456-bad0b1add025.png)   
 
 ```c
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef int element;
-
-typedef struct {
-	element data; // 데이터를 저장할 변수
-	struct ListNode * link; // 다음 노드를 저장할 포인터
-}ListNode;
-
 // 노드를 생성함과 동시에 head와 연결 시켜주는 함수
 ListNode * insertNode(ListNode * head, element value) {
 	ListNode * newNode = (ListNode*)malloc(sizeof(ListNode)); // 새로운 노드 생성
@@ -228,7 +229,15 @@ ListNode * insertNode(ListNode * head, element value) {
 	head = newNode; // head에 새로 생성한 노드를 복사함
 	return head;
 }
+```
 
+
+
+- 삭제 연산
+
+![delete](https://user-images.githubusercontent.com/55940552/105963491-65a37600-60c4-11eb-9035-581cc7be92f2.png)
+
+```c
 // pre 노드가 가리키는 다음 노드를 삭제
 ListNode * deleteNode(ListNode * head, ListNode *pre) {
 	ListNode * removed;
@@ -236,39 +245,6 @@ ListNode * deleteNode(ListNode * head, ListNode *pre) {
 	pre->link = removed->link; // removed가 가리키는 다음 노드를 임시 저장
 	free(removed); // 삭제할 노드 메모리 해제
 	return head;
-}
-
-void printList(ListNode * head) {
-	for (ListNode * cur = head; cur != NULL; cur = cur->link) {
-		printf("%d -> ", cur->data);
-	}
-	printf("NULL \n");
-}
-
-int main() {
-	ListNode * head = NULL; // 새로운 노드 생성
-	int T = 0;
-	element item = 0; // 사용자에게 입력 받을 데이터 변수
-	int cnt = 0;
-
-	for (scanf("%d", &T); T--;) {
-		while (1) {
-			scanf("%d", &item);
-
-			if (item == -1)
-				break;
-
-			head = insertNode(head, item); // 데이터 삽입
-			cnt++;
-		}
-		printList(head); // 현재 리스트 모두 출력 
-
-		while (cnt) {
-			head = deleteNode(head); // 삽입했던 데이터 모두 삭제
-			cnt--;
-		}
-	}
-	return 0;
 }
 ```
 
