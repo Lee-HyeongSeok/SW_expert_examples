@@ -2,6 +2,32 @@
 
 ***
 
+### **목차**
+
+- **ArrayList와 LinkedList**
+
+  - ArrayList 선형 리스트란
+
+    - ArrayList 선형 리스트 특징
+
+  - LinkedList 연결 리스트란
+
+    - LinkedList 연결 리스트 특징
+    - LinkedList 연결 리스트 종류
+
+    
+
+- **연결 리스트 구현**
+
+  - 1차원 배열을 이용한 구현
+  - 포인터를 이용한 구현
+
+  
+
+- **단순 연결 리스트를 이용한 다양한 구현**
+
+
+
 ### **⚙ ArrayList(선형리스트)와 LinkedList(연결리스트)**
 
 **1. ArrayList 선형 리스트란**
@@ -42,25 +68,25 @@
 
 **2-2. LinkedList 연결 리스트 종류**
 
-1. 단순 연결 리스트(Single Linked List)
+1. **단순 연결 리스트(Single Linked List)**
 
 ![단순](https://user-images.githubusercontent.com/55940552/105948967-42ba9700-60af-11eb-85b3-f987f2dd41a2.png)
 
-2. 단순 원형 연결 리스트(Single Circular Linked List)
+2. **단순 원형 연결 리스트(Single Circular Linked List)**
 
 ![단순원형](https://user-images.githubusercontent.com/55940552/105948968-42ba9700-60af-11eb-9952-a5cfb64f26c6.png)
 
-3. 이중 연결 리스트(Double Linked List)
+3. **이중 연결 리스트(Double Linked List)**
 
 ![이중연결](https://user-images.githubusercontent.com/55940552/105948964-41896a00-60af-11eb-8971-f92d9cd0380c.png)
 
-4. 이중 원형 연결 리스트(Double Circular Linked List)
+4. **이중 원형 연결 리스트(Double Circular Linked List)**
 
 ![이중원형](https://user-images.githubusercontent.com/55940552/105948965-42220080-60af-11eb-978d-dbd12a751527.png)
 
 
 
-### **⚙ 리스트 구현 방법 - 단순 연결 리스트(SLL)**
+### **⚙ 연결 리스트 구현 방법 - 단순 연결 리스트(SLL)**
 
 - **1차원 배열을 이용한 구현**
   
@@ -75,27 +101,21 @@
     [1차원 배열을 이용한 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/1%EC%B0%A8%EC%9B%90%EB%B0%B0%EC%97%B4%EA%B5%AC%ED%98%84)
   
     [1차원 배열을 이용한 구현 - SW expert academy](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/SW_Expert_Reference_Code)   
-  
     
-- **연결 리스트, 포인터를 이용한 구현**
+    
+  
+- **포인터를 이용한 구현**
   
   - 구현이 복잡하다.
-  
-- 삽입, 삭제가 효율적이다.
-  
+  - 삽입, 삭제가 효율적이다.
   - 데이터를 저장할 공간이 제한적이지 않다.
+  - 메모리를 효율적으로 사용할 수 있다.
+  - 메모리 공간이 연속적으로 구성되지 않는다.
   
-    [포인터를 이용한 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%85%B8%EB%93%9C%EA%B5%AC%ED%98%84)
-  
-    [포인터를 이용한 다항식 연산 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%8B%A4%ED%95%AD%EC%8B%9D)
-  
-    
-  
-    
-  
-   
 
-### **⚙  1차원 배열을 이용한 구현**
+
+
+### **⚙  1차원 배열을 이용한  단순 연결 리스트 구현**
 
 - 1차원 배열에 항목들을 순서대로 저장
 - **삽입 연산** : 삽입 위치 다음의 항목들을 데이터의 개수 만큼 이동해야 한다.
@@ -220,7 +240,10 @@ int main() {
 
 - 하나의 노드 구조체에 <데이터, 다음 노드 주소> 쌍을 나타낸다.
 - 삽입 연산 시 새로운 노드를 생성하고 head 노드와 연결해준다.
-- 삽입 연산
+
+
+
+### **삽입 연산**
 
 ![insert](https://user-images.githubusercontent.com/55940552/105963484-64724900-60c4-11eb-8456-bad0b1add025.png)   
 
@@ -238,7 +261,9 @@ ListNode * insertNode(ListNode * head, element value) {
 
 
 
-- 삭제 연산
+
+
+### **삭제 연산**
 
 ![delete](https://user-images.githubusercontent.com/55940552/105963491-65a37600-60c4-11eb-9035-581cc7be92f2.png)
 
@@ -252,6 +277,18 @@ ListNode * deleteNode(ListNode * head, ListNode *pre) {
 	return head;
 }
 ```
+
+
+
+
+
+### **⚙ 단순 연결 리스트를 이용한 다양한 구현**
+
+- 📌 [포인터를 이용한 단순 연결 리스트 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%85%B8%EB%93%9C%EA%B5%AC%ED%98%84)
+- 📌 [포인터를 이용한 다항식 연산 연결 리스트 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/%EB%8B%A4%ED%95%AD%EC%8B%9D)
+- 📌 [head, tail 포인터를 이용한 Stack 구현](https://github.com/Lee-HyeongSeok/SW_expert_examples/tree/main/DataStructure/Linked_List/LinkedList_stack%EA%B5%AC%ED%98%84)   
+
+
 
 
 
