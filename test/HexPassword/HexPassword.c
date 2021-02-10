@@ -7,23 +7,44 @@
 
 // A~F를 10부터 15까지 정의
 enum Hex {
-	A=10, B, C, D, E, F
+	A=10, B=11, C=12, D=13, E=14, F=15
 };
 
 // A ~ F(10 ~ 15)
 int Value[MAX]; // 0이상 F 이하의 16진수가 주어진다.
-int initialValue[MAX]; // 모든 회전을 마쳤는지 확인 
 int Binary[DIV*DIV]; // 4자리수, 4비트이므로 총 16개의 비트가 산출된다.
-int Dec[MAX_DEC]; // 10진수로 변환한 각 면의 16진수들을 저장하는 배열
+int Dec[MAX_DEC]; // 16진수 -> 10진수로 변환한 각 면의 수를 저장하는 배열
 int N, K; // 숫자의 개수 N, 크기 K가 주어진다.
 
 
 void init() {
-	// 처음 받은 값을 같은 크기의 배열에 복사한다.
-	// 모든 회전 이후에 처음과 같은 값을 가지는지 확인하여 프로그램 종료를 위함
-	for (int i = 0; i < N; i++) {
-		initialValue[i] = Value[i]; 
+	for (int i = 0; i < DIV*DIV; i++) {
+		Binary[i] = 0;
 	}
+}
+
+void initDec() {
+	for (int i = 0; i < MAX_DEC; i++) {
+		Dec[i] = 0;
+	}
+}
+
+void initValue() {
+	for (int i = 0; i < N; i++) {
+		Value[i] = 0;
+	}
+}
+
+void RotationArray() {
+	int temp = 0;
+
+	temp = Value[N - 1];
+	// 0부터 N개의 숫자 까지만 회전시킨다.
+	for (int i = N - 1; i > 0; i--) {
+		Value[i] = Value[i - 1];
+	}
+
+	Value[0] = temp;
 }
 
 // 16진수 배열에 사용자 입력값을 입력받는 함수
@@ -46,6 +67,7 @@ void inputValue() {
 			break;
 		case 'D':
 			Value[i] = D;
+			break;
 		case 'E':
 			Value[i] = E;
 			break;
@@ -62,10 +84,23 @@ void inputValue() {
 // FixedBinary() 함수로부터 변환된 10진수를 인자로 전달받는다.
 // 전달받은 10진수를 중복없이 Dec 배열에 삽입한다.
 // 중복제거, 정렬을 한번에 수행
-void InsertDec(int Value) {
+void InsertDec(int data) {
+	// 10진수를 저장하는 배열을 순회
 	for (int i = 0; i < MAX_DEC; i++) {
-		if (Dec[i] > 0) {
-			
+		// 인자로 전달받은 10진수가 배열에 이미 존재한다면
+		if (data == Dec[i]) {
+			return; // 중복 발생 시 함수 종료
+		}
+	}
+
+	// 인자로 전달받은 10진수가 배열에 존재하지 않아 함수가 종료되지 않는 경우 동작하는 코드
+	for (int i = 0; i < MAX_DEC; i++) {
+		if (data > Dec[i]) {
+			for (int j = MAX_DEC; j > i; j--) {
+				Dec[j] = Dec[j - 1];
+			}
+			Dec[i] = data;
+			break;
 		}
 	}
 }
@@ -73,11 +108,11 @@ void InsertDec(int Value) {
 // 마지막 자리 인덱스를 받아서 m개씩 16진수를 10진수로 변환하는 함수
 void FixedBinary(int index) {
 	int temp = 0;
-	int idx = N - 1;
+	int idx = 15; // 16비트 자리수, 맨 뒤에부터 채우기 위함 
 
-	// index-2 부터 index까지 순회
-	for (int i = index; i >= (index-2); i--) {
-		temp = Value[i];
+	// 정해진 구간 순회
+	for (int i = index; i >= (index-(N/DIV-1)); i--) {
+		temp = Value[i]; // F535
 		
 		// 2진수로 변환
 		for(int j=0; j<4; j++){
@@ -85,7 +120,7 @@ void FixedBinary(int index) {
 				Binary[idx--] = temp % 2;
 				temp /= 2;
 			}
-			else {
+			else if(temp == 0){
 				Binary[idx--] = 0;
 			}
 		}
@@ -95,8 +130,8 @@ void FixedBinary(int index) {
 	int mult = 1;
 
 	// 2진수를 10진수로 바꾸는 부분
-	for (int i = N - 1; i >= 0; i--) {
-		dec += Binary[i] * mult;
+	for (int i = 15; i >= 0; i--) {
+		dec += (Binary[i] * mult);
 		mult *= 2;
 	}
 
@@ -116,8 +151,9 @@ void PickedHEX() {
 
 void printValue() {
 	printf("\n");
-	for (int i = 0; i < N; i++) {
-		printf("%d ", Value[i]);
+	for (int i = 0; i < MAX_DEC; i++) {
+		if(Dec[i])
+			printf("%d\n", Dec[i]);
 	}
 }
 
@@ -132,17 +168,28 @@ int main() {
 		// 배열에 사용자 입력값을 입력받는다.
 		inputValue();
 
-		// 입력 받은 초기 값을 또 다른 배열에 복사한다.
-		init();
-
-		// 입력 받은 16진수를 숫자로 나타낸 배열 Value를 출력 
-		printValue();
-		printf("\n");
-
 		// 회전하기 전 4개의 면에 대해 HEX 값을 나누어 선택하는 동작
 		// 내부에 16진수를 10진수로 변환하여 Dec 배열에 저장하는 함수 내장 
-		PickedHEX();
+		// 한 면에 들어가는 숫자들 개수 -1만큼 회전하면 초기 숫자들로 돌아온다.
+		for (int rotation = 0; rotation < (N / DIV); rotation++) {
+			PickedHEX();
 
-		// 
+			// 배열 회전 코드
+			RotationArray();
+
+			// Binary배열 초기화
+			init();
+
+			// 입력 받은 16진수를 숫자로 나타낸 배열 Value를 출력 
+			printf("------%d 회전------\n", rotation);
+			printValue();
+			printf("\n");
+		}
+
+		// K번째로 큰 수 출력
+		printf("#%d %d\n", tc, Dec[K-1]); // 테스트 케이스 출력 
+
+		initDec();
+		initValue(); // Value 배열 초기화
 	}
 }
