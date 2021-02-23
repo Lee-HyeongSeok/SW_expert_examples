@@ -10,3 +10,16 @@
 - N이 주어졌을 때, 퀸을 놓는 방법의 수를 구하는 프로그램 
 - N은 1이상 10이하로 주어진다.
 - 퀸은 현재 자신의 위치로부터 모든 맵의 가로, 세로를 차지한다.
+
+
+
+<br> 
+
+***
+
+**[출처]**
+
+[SW Expert Academy](https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do)
+
+[영충이 알고리즘 블로그](https://2youngjae.tistory.com/116)
+
